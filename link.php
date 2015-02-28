@@ -23,5 +23,4 @@
 	if($success==false) {
 		header("Location:index.html");
 	}
-	//<iframe width="854" height="510" src="https://www.youtube.com/embed/SYV0VxiAStE" frameborder="0" allowfullscreen></iframe>
 ?>

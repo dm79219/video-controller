@@ -1,7 +1,10 @@
 <?php
 	if ($_SERVER["REQUEST_METHOD"]=="POST") {
 		if (!empty($_POST["url"]) && !empty($_POST["start"]) && !empty($_POST["end"])) {
-			$url=$_POST["url"];
+			$temp_url=$_POST["url"];
+			$temp_url=substr($temp_url, strpos($temp_url, "=") + 1);
+			$url='https://www.youtube.com/embed/';
+			$url.=$temp_url;
 			$start=$_POST["start"];
 			$end=$_POST["end"];
 			$url.='?start='.$start.'&amp;end='.$end;
@@ -20,4 +23,5 @@
 	if($success==false) {
 		header("Location:index.html");
 	}
+	//<iframe width="854" height="510" src="https://www.youtube.com/embed/SYV0VxiAStE" frameborder="0" allowfullscreen></iframe>
 ?>

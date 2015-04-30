@@ -1,0 +1,65 @@
+#form{
+position: relative;
+margin: 0px 0px;
+width: 350px;
+left: 50px;
+border-top: solid 1px #EBEBEB;
+
+}
+#form h2{
+font-size: 1.7em;
+font-weight: 700;
+color: #39464e;
+margin-top: 10px;
+}
+#session-form fieldset {
+margin-bottom: 10px;
+padding: 15px 0 20px;
+}
+.commonForm fieldset {
+!border-bottom: solid 1px #EBEBEB;
+}
+#input{
+font-family: "Open Sans", "Helvetica", "Arial", "FreeSans", "Verdana", "Tahoma", "Lucida Sans", "Lucida Sans Unicode", "Luxi Sans", sans-serif;
+}
+.commonForm fieldset p {
+margin-bottom: 10px;
+}
+
+#session-form p label {
+display: none;
+}
+.commonForm fieldset p label {
+width: 220px;
+!display: inline-block;
+color: #767A8C;
+}
+
+#session-form p input {
+width: 332px;
+}
+
+.commonForm fieldset p input[type=text],.commonForm fieldset p input[type=password]
+{
+display: inline-block;
+background-color: #F9F9F9;
+width: 300px;
+padding: 8px;
+border: solid 1px #c4c7cb;
+border-radius: 3px;
+box-shadow: inset 0px 1px 1px #e0e4e9;
+outline: none;
+margin-left: 5px;
+color:black;
+}
+.commonForm input[type=submit] {
+border-radius: 3px;
+padding: 10px 20px;
+background: #2795ee;
+border: none;
+color: #fff;
+font-size: .9em;
+font-weight: 700;
+cursor: pointer;
+margin-left:5px
+}

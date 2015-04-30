@@ -1,3 +1,7 @@
+<?php
+require_once "core.inc.php";
+require "connect.inc.php";
+?>
 <html>
 <head>
 	<title>Get your videos trimmed instantaneously</title>
@@ -80,7 +84,7 @@
   		font-size: 18px;
   		padding: 10px;
   	}
-  	#login:hover{
+  	#signup:hover{
     	border-bottom: 3px solid red;
     }
     .line:hover {
@@ -94,16 +98,58 @@
     #video:hover{
     	border-bottom: 3px solid blue;
     }
+    button {
+	border-radius: 3px;
+	padding: 10px 20px;
+	background:-webkit-linear-gradient(top,white,lightblue);
+	border: none;
+	color:#607D8B;
+	font-size: .9em;
+	font-weight: 700;
+	cursor: pointer;
+	margin-left:5px
+	}
+	button:hover {
+    background:#2795ee;
+    color: white;
+    }
 
 	</style>
    
 </head>
 <div id="top">
-	<a href="index.html" class="line">Home</a>
-	<a href="faq.html" class="line" style="margin-left:20px;margin-right:20px;">FAQs</a>
-	<a href="login.html" id="login" style="color:red;">Login</a><br>
+	<a href="index.php" class="line">Home</a>
+	<a href="faq.php" class="line" style="margin-left:20px;margin-right:20px;">FAQs</a>
+	<?php
+	if(!loggedin()){
+		echo '<a href="signup.php" id="signup" style="color:red;">Sign up</a><a href="login.php" class="line" id="login">Login</a><br>';
+	}
+	if(loggedin()){
+		echo '<a href="saved.php" class="line" style="margin-left:20px;margin-right:20px;">Saved videos</a><a href="logout.php" id="signup" style="color:red;">Logout</a>';
+		$firstname=getuserfield('firstname');
+			$lastname=getuserfield('lastname');
+			echo('<span style="vertical-align:top;float:right;margin-top:0;color:white;position: relative;
+					margin-right: 5px;font-size:18px;">Hello '.$firstname.'</span>');
+	}?>
 </div>
-<body background="technology.jpg" height=200% width=200%>
+<style type="text/css">
+video{
+	position: absolute;
+	z-index: -1;
+	min-height: 100%;
+	min-width: 100%;
+	width: auto;
+	height: auto;
+	background: url(background.png);
+	background-size: cover;
+}
+</style>
+<video autoplay poster="background.png">
+	<source src="video.ogv" type="video/ogv"/>
+	<source src="video.webm" type="video/webm">
+	<source src="video.mp4" type="video/mp4">
+</video>
+<body>
 	<div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -142,7 +188,33 @@
 			?>
 			<a href="
 			<?php
-			echo $url;?>" id="video" style="font-size:25px;color:blue;margin-left:3.6cm">Click here to play the trimmed video</a><br><br>
+			echo $url;?>" id="video" style="font-size:25px;color:blue;margin-left:3.6cm" target="_blank">Click here to play the trimmed video</a>
+			<script type="text/javascript">
+				function save(){
+					var s=document.getElementById("msg");
+					s.innerHTML="Saving";
+					<?php
+						$id=getuserfield('id');
+						$success=false;
+						$query="INSERT INTO `data` values ('".mysql_real_escape_string($id)."','".mysql_real_escape_string($url)."','".mysql_real_escape_string($start)."','".mysql_real_escape_string($end)."')";
+						if($query_run=mysql_query($query))
+						{
+							echo's.innerHTML="Saved"';	
+						
+						}
+						else
+						{
+							echo's.innerHTML="Already saved"';
+						
+						}
+					?>
+				}
+			</script>
+			<?php
+			if(loggedin()){
+				echo '<button onClick="save();">Save the link</button><span id="msg"></span>';
+			}?>
+			<br><br>
 
             <span style="margin-left:3.6cm;color:#0277BD;">Share the link on</span>
 			<div class="fb-share-button"  style="margin-left:3.6px;margin-top:1cm;padding-left:3.6cm;height:20px;" data-href=<?php echo $url;?> data-layout="button"></div>
@@ -157,7 +229,7 @@
 		$success=false;
 	}
 	if($success==false) {
-		header("Location:index.html");
+		header("Location:index.php");
 	}
 ?>
 <div id="fb-root"></div>
@@ -168,8 +240,7 @@
   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-		
-			
+					
 	<footer>
 	</footer>
 </body>
